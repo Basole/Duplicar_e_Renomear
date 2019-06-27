@@ -1,0 +1,26 @@
+Sub Duplicar_e_Renomear()
+    Dim Rng As Range
+    Dim newName As String
+    Dim newSheet As Worksheet
+    
+    With ThisWorkbook
+    
+    Set newSheet = .Sheets.Add(After:= _
+                   .Sheets(.Sheets.Count))
+    With .Sheets("Movimento do Dia")
+    Set Rng = .Range(.Cells(1, 1), .Cells(28, 5))
+    Rng.Copy Destination:=newSheet.Range("A1")
+    Set Rng = .Range(.Cells(1, 9), .Cells(2, 15))
+    Rng.Copy Destination:=newSheet.Range("I1")
+    On Error GoTo Erro
+    newName = InputBox("O nome do backup  é:", "Renomeando...", newSheet.Name)
+    newSheet.Name = newName
+    End With
+    End With
+        
+    MsgBox "Backup Realizado com Sucesso!!!", 64, Sucesso
+     Exit Sub
+Erro:     MsgBox "O nome " & newName & " Ja existe!! ", vbCritical, "Verifique !!!"
+ On Error GoTo 0
+ 
+End Sub
